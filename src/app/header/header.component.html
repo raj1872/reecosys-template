@@ -1,0 +1,31 @@
+<div class="header-wrapper" [ngClass]="{ 'white-header-wrapper': isProjectDetailPage }">
+  <div class="header-flex">
+    <div class="header-logo">
+      <a href="/">
+        <!-- Colored Logo (default) -->
+        <img src="./assets/images/sahashya-color-logo.svg" alt="Color Logo" class="logo-img"
+          *ngIf="!isProjectDetailPage" />
+
+        <!-- White Logo (on detail page) -->
+        <img src="./assets/images/sahashya-white-logo.svg" alt="White Logo" class="logo-img"
+          *ngIf="isProjectDetailPage" />
+      </a>
+    </div>
+    <div class="header-links-ul">
+      <ul>
+        <li class="link-font-size">
+          <a href="">
+            <p >Skyzenia</p>
+          </a>
+        </li>
+        <li>
+          <div class="web-bar">
+            <div class="bar top"></div>
+            <div class="bar middle"></div>
+            <div class="bar bottom"></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

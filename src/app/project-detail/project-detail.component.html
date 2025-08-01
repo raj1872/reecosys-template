@@ -1,0 +1,358 @@
+<div class="project-detail-wrapper" id="reecosys-detail-wrapper">
+  <ng-container *ngIf="loading && !imageLoaded" class="shimmer-wrapper">
+    <div class="shimmer-banner">
+
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!loading && projectData">
+    <section class="reecosys-section relative" id="reecosys-detail-section-1" *ngIf="projectData?.banner_data">
+      <div class="banner-image-wrapper">
+        <img [src]="projectData.banner_data.image_web_full + '&w=2560&q=100'" alt="" [class.loaded]="imageLoaded"
+          (load)="imageLoaded = true" />
+      </div>
+      <div class="detail-overlay"></div>
+      <div *ngIf="projectData?.banner_data && imageLoaded" class="new-horizon-detail">
+        <svg id="new-horizon-html" viewBox="0 0 1321 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M37.9102 1.56348C38.536 1.56348 39.1724 1.71892 39.8232 2.04297C40.4351 2.34768 40.8881 2.79831 41.1953 3.40527L74.8242 85.8076L74.832 85.8252L74.8408 85.8428C75.1948 86.548 75.3213 86.9873 75.3213 87.2139C75.3213 88.1531 75.0122 88.9093 74.4004 89.5186C73.7886 90.1278 73.0286 90.4364 72.084 90.4365C71.1439 90.4365 70.3826 90.2891 69.7803 90.0215C69.6289 89.72 69.4785 89.4177 69.3271 89.1162C69.1512 88.7658 68.9747 88.4158 68.7988 88.0654L59.1973 64.6885L59.0703 64.3789H16.21L16.0859 64.6982L7.00879 88.0967L7.00488 88.1074L7.00098 88.1191C6.66966 89.1088 6.20194 89.6824 5.65039 89.957C4.99949 90.2812 4.3632 90.4365 3.7373 90.4365C2.79262 90.4365 2.0327 90.1278 1.4209 89.5186C0.76353 88.8639 0.5 88.2741 0.5 87.7451V86.248L34.6221 3.41016C34.9293 2.8006 35.3836 2.34858 35.9971 2.04297C36.6478 1.71891 37.2844 1.56354 37.9102 1.56348ZM36.9121 13.1094L19.292 57.248L19.0186 57.9336H56.2773L55.9932 57.2432L37.8389 13.1045L37.3701 11.9639L36.9121 13.1094Z"
+            fill="white" stroke="white" class="new-horizon-svg-1"></path>
+          <path
+            d="M244.017 1.56348C244.961 1.56348 245.722 1.87201 246.334 2.48145C246.946 3.09076 247.255 3.84697 247.255 4.78613V86.6816C247.255 87.9532 246.788 88.8507 245.876 89.4561L245.835 89.4834L245.8 89.5186C245.188 90.1278 244.428 90.4364 243.483 90.4365C243.254 90.4365 242.812 90.3095 242.104 89.957C241.432 89.6219 240.957 89.3023 240.653 89.0068L185.684 15.123L184.782 13.9121V87.2139C184.782 88.1532 184.473 88.9093 183.861 89.5186C183.25 90.1279 182.49 90.4365 181.545 90.4365C180.59 90.4365 180.097 90.1297 179.855 89.6484L179.819 89.5762L179.762 89.5186L179.65 89.4023C179.112 88.8138 178.841 88.0945 178.841 87.2139V4.78613C178.841 3.84679 179.15 3.0907 179.762 2.48145C180.374 1.87217 181.133 1.56353 182.078 1.56348C182.307 1.56348 182.749 1.69055 183.457 2.04297L183.562 2.0957H183.681C183.684 2.09573 183.698 2.09591 183.725 2.10938C183.755 2.12445 183.801 2.15566 183.861 2.21582C183.986 2.33968 184.136 2.55209 184.302 2.88281L184.321 2.92285L184.349 2.95898L239.88 76.8779L240.779 78.0762V4.78613C240.779 3.84679 241.088 3.09069 241.7 2.48145C242.312 1.87215 243.072 1.56357 244.017 1.56348Z"
+            fill="white" stroke="white" class="new-horizon-svg-2"></path>
+          <path
+            d="M301.149 1.56348H348.672C349.617 1.56355 350.376 1.87216 350.988 2.48145C351.6 3.09074 351.909 3.84685 351.909 4.78613C351.909 5.72538 351.6 6.48154 350.988 7.09082C350.377 7.70004 349.617 8.00872 348.672 8.00879H304.921V41.4482H342.798C343.743 41.4482 344.503 41.7568 345.115 42.3662C345.727 42.9755 346.036 43.7319 346.036 44.6709C346.036 45.6099 345.727 46.3664 345.115 46.9756C344.503 47.585 343.743 47.8926 342.798 47.8926H304.921V83.46H348.672C349.538 83.4601 350.286 83.8766 350.926 84.833L350.953 84.874L350.988 84.9092C351.6 85.5185 351.909 86.2746 351.909 87.2139C351.909 88.1531 351.6 88.9093 350.988 89.5186C350.376 90.1278 349.617 90.4365 348.672 90.4365H301.149C300.283 90.4364 299.536 90.0189 298.896 89.0625L298.868 89.0215L298.833 88.9863L298.722 88.8711C298.184 88.2825 297.912 87.5623 297.912 86.6816V4.78613L297.927 4.44238C297.994 3.66007 298.298 3.01458 298.833 2.48145C299.445 1.87214 300.205 1.56356 301.149 1.56348Z"
+            fill="white" stroke="white" class="new-horizon-svg-3"></path>
+          <path
+            d="M500.849 1.56348C501.826 1.56348 502.61 1.72171 503.223 2.00977C503.772 2.5941 504.087 3.49035 504.087 4.78613V6.29688L475.828 88.0723C475.521 88.6743 475.071 89.1217 474.462 89.4248L474.39 89.4609L474.332 89.5186C473.675 90.1728 473.083 90.4364 472.55 90.4365C471.947 90.4365 471.334 90.2907 470.708 89.9902C470.058 89.3334 469.581 88.6907 469.264 88.0625L446.849 33.3135L446.38 32.1699L445.921 33.3174L424.038 88.0674C423.721 88.6935 423.245 89.3337 422.598 89.9883C421.984 90.2771 421.2 90.4365 420.222 90.4365C420.193 90.4364 420.072 90.4142 419.831 90.2539C419.602 90.1021 419.317 89.8613 418.973 89.5186L418.915 89.4609L418.843 89.4248C418.234 89.1216 417.783 88.6744 417.476 88.0723L389.191 6.21777L389.181 6.18652L389.165 6.15723L389.043 5.90527C388.781 5.34563 388.685 4.98446 388.685 4.78613C388.685 3.53876 389.134 2.65166 390.012 2.04688C391.023 1.71613 391.833 1.56353 392.456 1.56348C393.433 1.56348 394.217 1.72172 394.83 2.00977C395.112 2.30832 395.415 2.75911 395.731 3.38574L420.816 76.7402L421.249 78.0029L421.753 76.7666L443.636 23.0762C443.811 22.7266 443.988 22.3769 444.163 22.0273C444.314 21.7257 444.465 21.4237 444.616 21.1221C445.218 20.8546 445.98 20.708 446.92 20.708C447.523 20.7081 448.135 20.8538 448.761 21.1543C449.408 21.8087 449.884 22.4493 450.201 23.0752L471.551 76.7627L472.056 78.0322L472.489 76.7363L497.038 3.38867C497.345 2.78997 497.796 2.34494 498.402 2.04297C499.025 1.73274 499.833 1.56349 500.849 1.56348Z"
+            fill="white" stroke="white" class="new-horizon-svg-4"></path>
+          <path
+            d="M671.714 1.56348C672.659 1.56349 673.418 1.87212 674.03 2.48145C674.615 3.06369 674.951 3.97713 674.951 5.31738V86.6816C674.951 87.6209 674.642 88.377 674.03 88.9863L673.995 89.0215L673.968 89.0625C673.327 90.019 672.58 90.4365 671.714 90.4365C670.825 90.4365 669.876 89.9954 668.863 88.9863C668.252 88.377 667.942 87.6209 667.942 86.6816V47.8926H615.148V86.5957C614.815 87.561 614.329 88.3541 613.694 88.9863L613.659 89.0215L613.632 89.0625C612.992 90.019 612.243 90.4365 611.377 90.4365C610.098 90.4365 609.196 89.97 608.589 89.0625L608.562 89.0215L608.526 88.9863L608.415 88.8711C607.877 88.2825 607.605 87.5623 607.605 86.6816V5.31738C607.606 4.04607 608.073 3.14926 608.984 2.54395L609.025 2.5166L609.061 2.48145C609.672 1.87208 610.432 1.5635 611.377 1.56348C612.322 1.56348 613.082 1.87202 613.694 2.48145L613.729 2.5166L613.771 2.54395C614.682 3.14923 615.148 4.04613 615.148 5.31738V41.4482H667.942V5.31738C667.942 4.04615 668.409 3.14923 669.32 2.54395L669.361 2.5166L669.396 2.48145C670.008 1.87202 670.769 1.56348 671.714 1.56348Z"
+            fill="white" stroke="white" class="new-horizon-svg-5"></path>
+          <path
+            d="M762.485 0.5C768.837 0.5 774.647 1.55419 779.921 3.65527C785.186 5.7529 789.567 8.89558 793.071 13.084L793.087 13.1016C796.957 17.3064 799.95 22.2139 802.064 27.8291L802.068 27.8398C804.177 33.089 805.236 39.0513 805.236 45.7344C805.236 52.4168 804.177 58.5608 802.064 64.1709C799.95 69.7861 796.957 74.6936 793.087 78.8984L793.086 78.9004C789.578 82.7434 785.187 85.8933 779.905 88.3496C774.635 90.4467 768.83 91.5 762.485 91.5C756.501 91.5 750.876 90.449 745.604 88.3516C740.325 85.8973 735.755 82.7472 731.889 78.9014C728.374 74.6972 725.557 69.7891 723.441 64.1709C721.329 58.5608 720.27 52.4168 720.27 45.7344C720.27 39.0513 721.329 33.089 723.438 27.8398L723.441 27.8291C725.559 22.2056 728.379 17.2937 731.898 13.0869C735.761 8.89494 740.321 5.75205 745.584 3.65527C750.861 1.55283 756.494 0.500043 762.485 0.5ZM762.485 6.94531C755.646 6.94537 749.681 8.55792 744.608 11.8018C739.179 15.0464 735.02 19.7319 732.133 25.8398C728.892 31.591 727.279 38.2278 727.279 45.7344C727.279 53.5933 728.891 60.4105 732.137 66.167H732.138C735.024 71.9153 739.176 76.4147 744.589 79.6543C749.663 83.2597 755.636 85.0546 762.485 85.0547C769.684 85.0547 775.836 83.262 780.914 79.6543C786.159 76.5158 790.221 72.196 793.094 66.7021L793.368 66.167C796.614 60.4105 798.227 53.5935 798.227 45.7344C798.227 38.2217 796.611 31.5806 793.364 25.8262C790.478 19.7252 786.322 15.0438 780.896 11.8018C775.82 8.55552 769.674 6.94531 762.485 6.94531Z"
+            fill="white" stroke="white" class="new-horizon-svg-6"></path>
+          <path
+            d="M853.791 1.56348H888.498C893.045 1.56348 897.235 2.60765 901.074 4.69336C904.915 6.78012 907.872 9.55444 909.958 13.0146C912.048 16.8349 913.094 21.0028 913.094 25.5264C913.094 29.011 912.57 32.3161 911.525 35.4453C910.131 38.5639 908.22 41.1552 905.794 43.2266C903.343 45.3188 900.724 46.8832 897.935 47.9248L896.424 48.4883L897.988 48.8779C899.365 49.2206 900.556 49.732 901.57 50.4053L901.576 50.4092L901.583 50.4131C904.35 52.1353 906.604 54.549 908.346 57.668C909.728 60.4252 910.605 63.8935 910.958 68.0908C910.959 71.7403 911.115 74.4919 911.436 76.3223L911.502 76.6768C911.858 78.8026 912.218 80.4236 912.586 81.5225L912.607 81.5869L912.645 81.6426C913.393 82.7609 914.33 83.694 915.453 84.4395L915.479 84.457L915.507 84.4707C916.058 84.7453 916.526 85.3188 916.857 86.3086L916.869 86.3428L916.885 86.375C917.118 86.8406 917.058 87.5205 916.382 88.5312L916.365 88.5566L916.351 88.585C916.06 89.1642 915.635 89.5994 915.069 89.9043H913.594C912.968 89.9043 912.331 89.7489 911.681 89.4248C910.334 88.7542 909.147 87.7441 908.12 86.3809L908.099 86.3525L908.073 86.3281L907.826 86.0703C906.608 84.7399 905.658 82.7906 905.002 80.1787C904.305 77.4005 903.949 73.5479 903.949 68.6016C903.949 65.3584 903.406 62.6167 902.294 60.4004C901.196 58.2124 899.72 56.5459 897.86 55.4268C896.042 53.9832 894.199 53.0603 892.333 52.6885L892.325 52.6875L892.317 52.6855C890.16 52.3275 888.175 52.1475 886.362 52.1475H857.562V86.6816C857.562 87.6207 857.254 88.3771 856.643 88.9863L856.607 89.0215L856.579 89.0625C855.939 90.019 855.192 90.4365 854.325 90.4365C853.046 90.4365 852.145 89.9701 851.537 89.0625L851.481 88.9795L851.398 88.9248L851.225 88.8037C850.386 88.1928 850.02 87.4881 850.02 86.6816V4.78613L850.024 4.62598C850.074 3.8333 850.497 3.14228 851.398 2.54395L851.439 2.5166L851.475 2.48145C852.086 1.8721 852.846 1.56353 853.791 1.56348ZM857.562 45.7021H888.498C891.8 45.7021 894.751 44.7868 897.331 42.9512C899.881 41.1371 902.061 38.7819 903.872 35.8955L903.885 35.876L903.896 35.8545C905.361 32.9346 906.085 29.4864 906.085 25.5264C906.085 20.4443 904.439 16.2346 901.132 12.9404L901.123 12.9316L901.112 12.9229L900.768 12.6201C897.182 9.54515 892.905 8.00879 887.964 8.00879H857.562V45.7021Z"
+            fill="white" stroke="white" class="new-horizon-svg-7"></path>
+          <path
+            d="M965.922 1.56348C966.867 1.56348 967.627 1.87202 968.239 2.48145C968.824 3.06363 969.159 3.9771 969.159 5.31738V86.6816C969.159 87.6209 968.851 88.3771 968.239 88.9863C967.226 89.9952 966.278 90.4364 965.389 90.4365C964.522 90.4365 963.774 90.019 963.134 89.0625L963.106 89.0215L963.071 88.9863L962.96 88.8711C962.422 88.2825 962.15 87.5623 962.15 86.6816V5.31738C962.15 3.97709 962.487 3.06366 963.071 2.48145C963.656 1.89886 964.575 1.56352 965.922 1.56348Z"
+            fill="white" stroke="white" class="new-horizon-svg-8"></path>
+          <path
+            d="M1021.45 1.56348H1080.19C1081.13 1.56348 1082.08 1.86989 1083.07 2.5166C1083.66 3.1199 1083.96 3.86467 1083.96 4.78613C1083.96 5.72529 1083.65 6.48148 1083.04 7.09082L1083.01 7.11523L1082.99 7.14258L1025.33 83.1895L1024.72 83.9912H1080.19C1080.74 83.9912 1081.52 84.2718 1082.54 84.9443C1083.13 85.5475 1083.43 86.2924 1083.43 87.2139C1083.43 88.1351 1083.13 88.8793 1082.54 89.4824C1081.52 90.1551 1080.74 90.4365 1080.19 90.4365H1018.25C1017.38 90.4364 1016.64 90.019 1016 89.0625L1015.97 89.0215L1015.93 88.9863L1015.82 88.8711C1015.28 88.2825 1015.01 87.5623 1015.01 86.6816C1015.01 86.071 1015.16 85.4505 1015.47 84.8154L1073.64 8.8125L1074.26 8.00879H1021.45C1020.51 8.00879 1019.75 7.70024 1019.14 7.09082C1018.52 6.48154 1018.22 5.72525 1018.22 4.78613C1018.22 3.84702 1018.52 3.09072 1019.14 2.48145C1019.67 1.94816 1020.32 1.64548 1021.11 1.57812L1021.45 1.56348Z"
+            fill="white" stroke="white" class="new-horizon-svg-9"></path>
+          <path
+            d="M1164.55 0.5C1170.9 0.5 1176.53 1.55408 1181.44 3.65039L1181.45 3.65527C1186.72 5.75454 1191.29 8.90202 1195.15 13.1016C1199.02 17.3063 1202.02 22.214 1204.13 27.8291L1204.14 27.8398C1206.24 33.089 1207.3 39.0514 1207.3 45.7344C1207.3 52.4168 1206.24 58.5608 1204.13 64.1709C1202.02 69.7814 1199.03 74.6843 1195.16 78.8867C1191.29 82.7405 1186.72 85.8978 1181.43 88.3555C1176.52 90.4477 1170.9 91.5 1164.55 91.5C1158.21 91.5 1152.58 90.4477 1147.68 88.3555C1142.39 85.8977 1137.81 82.7407 1133.94 78.8867C1130.08 74.6845 1127.09 69.781 1124.97 64.1709C1122.86 58.5608 1121.8 52.4168 1121.8 45.7344C1121.8 39.0512 1122.86 33.0891 1124.97 27.8398L1124.97 27.8291C1127.09 22.214 1130.08 17.3063 1133.95 13.1016C1137.57 9.16446 1141.81 6.15244 1146.67 4.06152L1147.65 3.65527L1147.66 3.65039C1152.57 1.5541 1158.2 0.500014 1164.55 0.5ZM1164.55 6.94531C1157.71 6.94533 1151.57 8.56068 1146.14 11.8018C1140.71 15.047 1136.55 19.7341 1133.67 25.8438C1130.78 31.5945 1129.35 38.2294 1129.35 45.7344C1129.35 53.5942 1130.78 60.4109 1133.67 66.167C1136.56 71.9222 1140.72 76.4255 1146.14 79.666C1151.56 83.2602 1157.7 85.0547 1164.55 85.0547C1171.4 85.0547 1177.54 83.2601 1182.96 79.666C1188.39 76.4255 1192.55 71.9223 1195.43 66.167C1198.32 60.4109 1199.76 53.5942 1199.76 45.7344C1199.76 38.2292 1198.32 31.5946 1195.44 25.8438H1195.44C1192.55 19.734 1188.39 15.047 1182.96 11.8018C1177.54 8.56067 1171.4 6.94531 1164.55 6.94531Z"
+            fill="white" stroke="white" class="new-horizon-svg-10"></path>
+          <path
+            d="M1317.26 1.56348C1318.21 1.5635 1318.97 1.87211 1319.58 2.48145C1320.19 3.09065 1320.5 3.84672 1320.5 4.78613V86.6816C1320.5 87.9959 1320.18 88.8988 1319.61 89.4824C1318.59 90.1547 1317.82 90.4365 1317.26 90.4365C1316.66 90.4365 1316.05 90.2899 1315.42 89.9883C1315.26 89.8316 1315.1 89.6753 1314.95 89.5186C1314.77 89.3487 1314.6 89.1787 1314.43 89.0088L1258.93 15.1211L1258.03 13.9238V87.2139C1258.03 88.1864 1257.87 88.9663 1257.58 89.5762C1256.98 90.1466 1256.24 90.4364 1255.32 90.4365C1254.38 90.4365 1253.62 90.1279 1253.01 89.5186C1252.4 88.9093 1252.09 88.1531 1252.09 87.2139V4.78613C1252.09 3.84685 1252.4 3.09074 1253.01 2.48145C1253.62 1.87207 1254.38 1.56348 1255.32 1.56348C1255.55 1.56366 1256 1.69067 1256.7 2.04297L1256.81 2.0957H1256.93C1257.19 2.09574 1257.41 2.16045 1257.58 2.27734C1257.76 2.39625 1257.93 2.58799 1258.08 2.88281L1258.1 2.92285L1258.13 2.95898L1313.66 76.8779L1314.56 78.0762V4.78613C1314.56 3.84685 1314.87 3.09074 1315.48 2.48145C1316.14 1.82691 1316.73 1.56348 1317.26 1.56348Z"
+            fill="white" stroke="white" class="new-horizon-svg-11"></path>
+        </svg>
+      </div>
+    </section>
+    <section class="reecosys-section section-padding relative" id="reecosys-detail-section-2"
+      *ngIf="projectData?.overview_title && projectData?.big_text && !loading && imageLoaded">
+      <div class="mini-container">
+        <div class="inner-flex inner-flex-medium">
+          <div class="banner-title">
+            <h2 class="sahashya-color">
+              {{projectData.overview_title}}
+              <span class="red-color">.</span>
+            </h2>
+          </div>
+          <div class="section-paragraph" [innerHTML]="projectData?.big_text"></div>
+
+
+          <div class="flex-row flex-row-medium alc" *ngIf="projectData.size_price && projectData.location">
+            <div class="project-info-icon-flex">
+              <div class="project-info-icon">
+                <img src="assets/images/icons/buildings.svg" alt="">
+              </div>
+
+              <div class="section-paragraph">
+                <p>
+                  {{projectData.size_price}}
+                </p>
+              </div>
+            </div>
+            <div class="project-info-icon-flex">
+              <div class="project-info-icon">
+                <img src="assets/images/icons/location.svg" alt="">
+              </div>
+
+              <div class="section-paragraph">
+                <p>
+                  {{projectData.location}}
+                </p>
+              </div>
+            </div>
+            <div class="project-info-icon-flex">
+              <div class="project-info-icon">
+                <img src="assets/images/icons/sq-ft.svg" alt="">
+              </div>
+
+              <div class="section-paragraph">
+                <p>
+                  5,514 Sq. Yd Onwards*
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-row flex-row-medium alc">
+            <button class="reecosys-template-button button-style-secondary">
+              <div class="reecosys-btn-icon">
+                <img src="assets/images/icons/call-white.svg" class="hover-disable" alt="">
+                <img src="assets/images/icons/call.svg" class="hover-enable" alt="">
+              </div>
+              <p>
+                Inquire Now
+              </p>
+            </button>
+            <button class="reecosys-template-button button-style-secondary-outline" *ngIf="hasBrochure">
+              <div class="reecosys-btn-icon">
+                <img src="assets/images/icons/download.svg" class="hover-disable" alt="">
+                <img src="assets/images/icons/download-white.svg" class="hover-enable" alt="">
+              </div>
+              <p>
+                Download Brochure
+              </p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="reecosys-section relative" id="reecosys-detail-section-3"
+      *ngIf="projectData?.virtual_data && projectData?.virtual_data.length > 0 && !loading && imageLoaded">
+      <div class="walkthrough-banner">
+        <img *ngIf="projectData?.virtual_data?.[0]?.image"
+          [src]="projectData.virtual_data[0].image + '&w=1920&h=920&q=100'" alt="Virtual Tour" />
+      </div>
+      <div class="play-icon">
+        <a data-fancybox href="https://www.youtube.com/embed/7F_D1-t9h_E?autoplay=1">
+          <img src="assets/images/icons/play-icon-circle.svg" alt="Play">
+        </a>
+      </div>
+      <div class="walkthrough-abs-flex main-container inner-flex">
+        <div class="section-paragraph">
+          <p class="white-color">{{projectData.virtual_data[0].title}}</p>
+        </div>
+        <div class="section-subtitle">
+          <h4 class="bold-fonts white-color">{{projectData.virtual_data[0].tag_line}}</h4>
+        </div>
+      </div>
+    </section>
+    <section class="reecosys-section section-padding relative" id="reecosys-detail-section-4"
+      *ngIf="projectData?.highlights && projectData?.highlights.length > 0 && !loading && imageLoaded">
+      <div class="main-container-fluid">
+        <div class="highlights-flex-wrapper-main">
+          <div class="highlights-flex-containers inner-flex inner-flex-small">
+            <div class="highlight-flex-card">
+              <div class="highlight-flex-image-card">
+                <img src="assets/images/detail/41-stories.svg" alt="">
+              </div>
+            </div>
+            <div class="highlights-card-row">
+              <div class="section-paragraph">
+                <p>Creating a Community</p>
+              </div>
+              <div class="section-title">
+                <p class="bold-fonts sahashya-color">84 Families</p>
+              </div>
+            </div>
+            <div class="highlights-card-row">
+              <div class="section-paragraph">
+                <p>For natural light and cross ventilation</p>
+              </div>
+              <div class="section-title">
+                <p class="bold-fonts sahashya-color">3 Side Open Residences</p>
+              </div>
+            </div>
+            <div class="highlights-card-row">
+              <div class="section-paragraph">
+                <p>Seamless Flow from All Directions</p>
+              </div>
+              <div class="section-title">
+                <p class="bold-fonts sahashya-color">2 Road Corner</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="highlights-image">
+            <img src="assets/images/detail/highlights-image-skyzenia.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="reecosys-section section-padding relative" id="reecosys-detail-section-5"
+      *ngIf="projectData?.amenities_data && projectData?.amenities_data.length > 0 && !loading && imageLoaded">
+      <div class="main-container">
+        <div class="amenities-title-flex-row">
+          <div class="section-title">
+            <h2 class="sahashya-color bold-fonts">
+              Amenities
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div id="amenities-section-swiper-with-paginations">
+        <swiper *ngIf="isBrowser" [config]="mySwiperConfig" class="mySwiper">
+          <ng-template swiperSlide>
+            <div class="swiper-slide-content">
+              <img src="assets/images/detail/amenities-img-1.jpg" />
+              <p class="caption bold-fonts">Gym</p>
+            </div>
+          </ng-template>
+          <ng-template swiperSlide>
+            <div class="swiper-slide-content">
+              <img src="assets/images/detail/amenities-img-2.jpg" />
+              <p class="caption bold-fonts">Double-Height Entrance Foyer</p>
+            </div>
+          </ng-template>
+          <ng-template swiperSlide>
+            <div class="swiper-slide-content">
+              <img src="assets/images/detail/amenities-img-3.jpg" />
+              <p class="caption bold-fonts">Pet-zone</p>
+            </div>
+          </ng-template>
+          <ng-template swiperSlide>
+            <div class="swiper-slide-content">
+              <img src="assets/images/detail/amenities-img-4.jpg" />
+              <p class="caption bold-fonts">Swimming Pool</p>
+            </div>
+          </ng-template>
+          <ng-template swiperSlide>
+            <div class="swiper-slide-content">
+              <img src="assets/images/detail/amenities-img-6.png" />
+              <p class="caption bold-fonts">Business Lounge</p>
+            </div>
+          </ng-template>
+        </swiper>
+
+      </div>
+    </section>
+    <section class="marquee-section" *ngIf="!loading && imageLoaded">
+      <section class="marquee-section">
+        <div class="marquee">
+          <div class="marquee-content">
+            <span *ngFor="let i of repeatArray">
+              /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELEVATE LIFE&nbsp;<span class="dot">.</span>&nbsp;REDEFINE
+              LUXURY&nbsp;<span class="dot">.</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+    </section>
+    <section class="reecosys-section section-padding relative" id="reecosys-detail-section-6"
+      *ngIf="projectData?.gallery_data && projectData?.gallery_data.length > 0 && !loading && imageLoaded">
+      <div class="mini-container">
+        <div class="inner-flex inner-flex-medium">
+          <div class="section-flex-row-jsc">
+            <div class="section-title">
+              <h2 class="bold-fonts white-color">Gallery</h2>
+            </div>
+            <div class="tab-panel-btn-wrapper">
+              <div class="tab-btn" [class.tab-btn-active]="selectedTab === 'interior'" (click)="setTab('interior')">
+                Interior
+              </div>
+              <div class="tab-btn" [class.tab-btn-active]="selectedTab === 'exterior'" (click)="setTab('exterior')">
+                Exterior
+              </div>
+            </div>
+          </div>
+          <div class="masonary-tab-pannel-wrapper">
+
+            <!-- Row 1 -->
+            <div class="row-masonary row-1-masonary">
+              <div class="masonary-galley-img" *ngFor="let i of [0,1,2,3]">
+                <a *ngIf="getGalleryImageHref(i)" [href]="getGalleryImageHref(i)" data-fancybox="project-gallery">
+                  <img [src]="getGalleryImage(i, 394, 276)" alt="" />
+                </a>
+                <img *ngIf="!getGalleryImageHref(i)" [src]="getGalleryImage(i, 394, 276)" alt="" />
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row-masonary row-2-masonary">
+              <div class="masonary-galley-img" *ngFor="let i of [4,5,6]">
+                <a *ngIf="getGalleryImageHref(i)" [href]="getGalleryImageHref(i)" data-fancybox="project-gallery">
+                  <img [src]="getGalleryImage(i, 291, 378)" alt="" />
+                </a>
+                <img *ngIf="!getGalleryImageHref(i)" [src]="getGalleryImage(i, 291, 378)" alt="" />
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="row-masonary row-3-masonary">
+              <div class="masonary-galley-img" *ngFor="let i of [7,8,9,10]">
+                <a *ngIf="getGalleryImageHref(i)" [href]="getGalleryImageHref(i)" data-fancybox="project-gallery">
+                  <img [src]="getGalleryImage(i, 394, 276)" alt="" />
+                </a>
+                <img *ngIf="!getGalleryImageHref(i)" [src]="getGalleryImage(i, 394, 276)" alt="" />
+              </div>
+            </div>
+
+          </div>
+
+          <button (click)="openFullGallery()"
+            class="reecosys-template-button button-style-white-outline view-all-gallery-images">
+            <div class="reecosys-btn-icon">
+              <img src="assets/images/icons/gallery-white.svg" class="hover-disable" alt="">
+              <img src="assets/images/icons/gallery.svg" class="hover-enable" alt="">
+            </div>
+            <p>
+              View Full Gallery
+            </p>
+          </button>
+
+
+          <div style="display: none;">
+            <a *ngFor="let img of projectData?.gallery_data?.[0]?.image" [href]="img['image_full']"
+              data-fancybox="all-gallery">
+              <img [src]="img['image'] + '&w=10&h=10&q=10'" alt="" />
+            </a>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </section>
+    <section class="reecosys-section section-padding relative" id="reecosys-detail-section-7"
+      *ngIf="projectData?.construction && !loading && imageLoaded">
+      <div class="main-container">
+        <div class="inner-flex inner-flex-medium">
+          <div class="construction-flex-row">
+            <div class="section-title">
+              <h2 class="sahashya-color bold-fonts">
+                {{projectData.construction.title}}
+              </h2>
+            </div>
+            <!-- 🔵 Progress Bar -->
+            <div class="progress-bar-wrapper" *ngIf="projectData?.construction?.progress_percent">
+              <div class="progress-track">
+                <div class="progress-fill" [ngStyle]="{ width: projectData.construction.progress_percent + '%' }"></div>
+              </div>
+              <div class="progress-labels">
+                <span>5%</span>
+                <span>100%</span>
+              </div>
+            </div>
+
+          </div>
+          <div class="const-img-flex-wrapper">
+            <div class="const-img-card" *ngFor="let img of projectData?.construction_data?.image">
+              <img [src]="img.image + '&w=578&h=276&q=100'" [alt]="img.construction_date || 'Construction update'" />
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+
+
+
+</div>

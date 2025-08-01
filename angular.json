@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/reecosys-template",
+            "outputPath": "dist/reecosys-template/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -25,6 +25,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/swiper/swiper-bundle.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -34,13 +35,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ],
               "outputHashing": "all"
@@ -87,12 +88,70 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/swiper/swiper-bundle.min.css",
               "src/styles.css"
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/reecosys-template/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "reecosys-template:build:development",
+              "serverTarget": "reecosys-template:server:development"
+            },
+            "production": {
+              "browserTarget": "reecosys-template:build:production",
+              "serverTarget": "reecosys-template:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "reecosys-template:build:production",
+              "serverTarget": "reecosys-template:server:production"
+            },
+            "development": {
+              "browserTarget": "reecosys-template:build:development",
+              "serverTarget": "reecosys-template:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
