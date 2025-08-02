@@ -151,6 +151,7 @@
   --banner-title-font-size: 4.5rem;
   --section-title-font-size: 4rem;
   --section-subtitle-font-size: 3rem;
+  --section-subtitle-font-size2: 2rem;
   --paragraph-font-size: 1.375rem;
   --content-font-size: 1.15rem;
   --link-font-size: 1rem;
@@ -412,13 +413,20 @@ img {
 }
 
 .main-container {
-  width: 80%;
+  width: 100%;
+  max-width: 1760px;
   margin: 0 auto;
 }
 
+.main-container-2 {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+}
 
 .mini-container {
-  width: 54%;
+  max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -479,6 +487,14 @@ button:focus-visible {
   gap: 0.5rem;
 }
 
+.wfc {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.db {
+  display: block;
+}
 
 .flex-row {
   display: flex;
@@ -486,6 +502,9 @@ button:focus-visible {
   gap: 0.5rem;
 }
 
+.flex-row.flex-row-small {
+  gap: var(--small-gap-size);
+}
 
 .flex-row.flex-row-medium {
   gap: var(--medium-gap-size);
@@ -612,6 +631,7 @@ button:focus-visible {
 }
 
 .section-content p,
+.section-content a,
 .section-content p span {
   font-size: var(--content-font-size);
   line-height: 1.5;
@@ -649,6 +669,14 @@ button:focus-visible {
 .section-subtitle h4 span {
   font-size: var(--section-subtitle-font-size);
   font-family: var(--semibold-font-family);
+  color: var(--primary-color);
+}
+
+.section-subtitle2 p,
+.section-subtitle2 h4,
+.section-subtitle2 h4 span {
+  font-size: var(--section-subtitle-font-size2);
+  font-family: var(--medium-font-family);
   color: var(--primary-color);
 }
 
@@ -954,17 +982,21 @@ button:focus-visible {
 
 
 .form-control-reecosys-template {
-  padding: 1rem 2rem 1rem 3.5rem;
+  padding: 1.25rem;
   border: 1px solid var(--highlight-color);
   resize: none;
-  background-color: var(--white-color);
+  background-color: transparent;
   margin: 0 !important;
   outline: none;
   line-height: 1;
-  font-size: 1rem;
+  font-size: 1.25rem;
   width: 100%;
   font-family: var(--medium-font-family);
-  border-radius: 0.5rem;
+  border-radius: 0rem;
+}
+
+.form-control-reecosys-template-phone {
+  padding-left: 9.25rem;
 }
 
 .form-control-reecosys-template.form-control-reecosys-template-search {
@@ -1031,6 +1063,349 @@ button:focus-visible {
 }
 
 .f-carousel__counter span,
-.f-carousel__toolbar__column > * {
+.f-carousel__toolbar__column>* {
   color: #FFFFFF !important;
+}
+
+@media only screen and (max-width: 1680px) {
+  html {
+    font-size: 14px;
+  }
+
+  .main-container {
+    max-width: 1480px;
+  }
+
+  .main-container-2 {
+    max-width: 1400px;
+  }
+}
+
+@media only screen and (max-width: 1450px) {
+  html {
+    font-size: 13px;
+  }
+
+  .main-container-fluid {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .main-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .main-container-2 {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .mini-container {
+    max-width: 991px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  html {
+    font-size: 13px;
+  }
+
+  .main-container-fluid {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .main-container {
+    width: 100%;
+    max-width: 1152px;
+    margin: 0 auto;
+  }
+
+  .main-container-2 {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .mini-container {
+    max-width: 991px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .main-container-fluid {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .main-container {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+
+  .main-container-2 {
+    width: 100%;
+    max-width: 991px;
+    margin: 0 auto;
+  }
+
+  .mini-container {
+    max-width: 991px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 1152px) {
+  html {
+    font-size: 12px;
+  }
+
+  .main-container-fluid {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .main-container {
+    width: 100%;
+    max-width: 991px;
+    margin: 0 auto;
+  }
+
+  .main-container-2 {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .mini-container {
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  html {
+    font-size: 11px;
+  }
+
+  .main-container-fluid {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .main-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .main-container-2 {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  .mini-container {
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .visible-tab-mobile {
+    display: block !important;
+  }
+
+  .section-padding {
+    padding: 6rem 0;
+  }
+
+  .section-padding-small {
+    padding: 2.5rem 0;
+  }
+
+  .flex-row.flex-row-medium.mob-flex-row-col {
+    flex-direction: column;
+    align-items: start !important;
+    justify-content: start !important;
+  }
+
+  .mob-flex-row-col .reecosys-template-button {
+    width: 100%;
+  }
+
+  .mob100,
+  .mob100 button {
+    width: 100% !important;
+  }
+
+  .form-control-reecosys-template-radios {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+
+  .form-card label,
+  .form-control-reecosys-template-radios label {
+    font-size: 16px !important;
+  }
+
+
+  .form-control-reecosys-template,
+  ::placeholder {
+    font-size: 16px !important;
+  }
+
+  .mob-col-flex {
+    flex-direction: column !important;
+    align-items: start !important;
+    justify-content: start !important;
+    gap: 0.1rem !important;
+  }
+
+  .hide-tab-mobile {
+    display: none !important;
+  }
+
+  .main-container-fluid,
+  .main-container,
+  .main-container-2,
+  .mini-container {
+    max-width: 100%;
+    padding: 0 1.5rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .visible-mobile-only {
+    display: block !important;
+  }
+
+  .section-paragraph p,
+  .section-paragraph p span,
+  .section-content p,
+  .section-content a,
+  .section-content p span {
+    font-size: 18px;
+  }
+
+  .project-info-icon {
+    width: 26px;
+    max-width: 26px;
+    height: 26px;
+    max-height: 26px;
+  }
+
+  .section-title h1,
+  .section-title p,
+  .section-title h1 span,
+  .section-title h2,
+  .section-title h2 span {
+    font-size: 40px;
+  }
+
+  .hide-mobile-only {
+    display: none !important;
+  }
+
+  .section-padding,
+  .section-padding-small {
+    padding: 4rem 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+
+  /* Optional: tighter padding for very small devices */
+  .main-container,
+  .main-container-2,
+  .mini-container,
+  .main-container-fluid {
+    padding: 0 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 325px) {
+
+  /* Edge case fallback */
+  .main-container,
+  .main-container-2,
+  .mini-container,
+  .main-container-fluid {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 991px) {
+
+  .reecosys-template-button:hover,
+  .button-style-primary:hover,
+  .button-style-primary-outline:hover,
+  .button-style-secondary:hover,
+  .button-style-secondary-outline:hover,
+  .button-style-white:hover,
+  .button-style-white-outline:hover {
+    background-color: initial !important;
+    border-color: initial !important;
+  }
+
+  .reecosys-template-button:hover .reecosys-btn-icon .hover-disable {
+    display: block !important;
+  }
+
+  .reecosys-template-button:hover .reecosys-btn-icon .hover-enable {
+    display: none !important;
+  }
+
+  .button-style-primary:hover span,
+  .button-style-primary:hover p,
+  .button-style-primary-outline:hover span,
+  .button-style-primary-outline:hover p,
+  .button-style-secondary:hover span,
+  .button-style-secondary:hover p,
+  .button-style-secondary-outline:hover span,
+  .button-style-secondary-outline:hover p,
+  .button-style-white:hover span,
+  .button-style-white:hover p,
+  .button-style-white-outline:hover span,
+  .button-style-white-outline:hover p {
+    color: inherit !important;
+  }
+
+  .inner-flex-small-mob-medium {
+    gap: var(--medium-gap-size) !important;
+  }
+
+  .form-control-reecosys-template-phone {
+    padding-left: 10.25rem;
+  }
+
+  .button-style-primary p,
+  .button-style-secondary p,
+  .button-style-white p,
+  .button-style-secondary-outline p {
+    font-size: 18px;
+  }
+
+  .reecosys-template-button {
+    padding: 1.5rem 2rem;
+  }
+
+  .reecosys-template-button .reecosys-btn-icon {
+    width: 24px;
+    height: 24px;
+  }
 }

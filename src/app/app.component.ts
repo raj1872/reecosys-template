@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
     this.globalApi.loadCompletedProjects();
     this.globalApi.loadPages();
     // this.globalApi.loadBlogs();
+    this.globalApi.loadCountryList();
     
     
   }

@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { SwiperModule } from 'swiper/angular';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SharedModule } from './shared/inquiry-form/shared.module';
 
 
 // import { SwiperModule } from './swiper/angular';
@@ -23,6 +25,9 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     SwiperModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule,
     HttpClientModule
   ],
   providers: [],

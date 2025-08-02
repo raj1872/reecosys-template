@@ -1,0 +1,115 @@
+<form [formGroup]="inquiryForm" (ngSubmit)="onSubmit()" class="inner-flex inner-flex-small inner-flex-small-mob-medium">
+  <div class="form-card relative">
+    <input type="text" class="form-control-reecosys-template"
+      [ngClass]="{ 'error-border': inquiryForm.get('client_name')?.invalid && inquiryForm.get('client_name')?.touched }"
+      formControlName="client_name" placeholder="Your Name" />
+    <div *ngIf="inquiryForm.get('client_name')?.touched && inquiryForm.get('client_name')?.invalid"
+      class="error-message">
+      Please enter name.
+    </div>
+  </div>
+
+  <div class="form-card relative">
+    <input type="email" class="form-control-reecosys-template"
+      [ngClass]="{ 'error-border': inquiryForm.get('email_address')?.invalid && inquiryForm.get('email_address')?.touched }"
+      formControlName="email_address" placeholder="Email Address" />
+    <div *ngIf="inquiryForm.get('email_address')?.touched && inquiryForm.get('email_address')?.invalid"
+      class="error-message">
+      <div *ngIf="inquiryForm.get('email_address')?.errors?.['required']">Please enter email.</div>
+      <div *ngIf="inquiryForm.get('email_address')?.errors?.['email']">Please enter valid email.</div>
+    </div>
+  </div>
+
+  <!-- Country code dropdown -->
+  <div class="form-card relative">
+    <div class="dropdown-toggle" (click)="toggleDropdown($event)">
+      <img [src]="selectedCountry.flag" height="14" />
+      <span>+{{ selectedCountry.phonecode }}</span>
+      <img src="assets/images/icons/caretdown.svg" alt="" class="dropdown-icon" />
+    </div>
+
+    <div *ngIf="countryDropdownOpen" class="dropdown-list" (click)="$event.stopPropagation()">
+      <div *ngFor="let country of countryList" class="dropdown-item" (click)="selectCountry(country, $event)">
+        <img [src]="country.flag" width="24" />
+        <span>+{{ country.phonecode }}</span>
+        <span>{{ country.name }}</span>
+      </div>
+    </div>
+
+    <input type="text" class="form-control-reecosys-template form-control-reecosys-template-phone"
+      formControlName="client_contact_no" placeholder="Phone Number" maxlength="10" (input)="onPhoneInput($event)"
+      [class.has-error]="
+    inquiryForm.get('client_contact_no')?.touched &&
+    inquiryForm.get('client_contact_no')?.invalid
+  " />
+
+
+    <div class="error-message" *ngIf="
+    inquiryForm.get('client_contact_no')?.touched &&
+    inquiryForm.get('client_contact_no')?.invalid
+  ">
+      <ng-container *ngIf="inquiryForm.get('client_contact_no')?.errors?.['required']">
+        Please enter mobile number.
+      </ng-container>
+      <ng-container *ngIf="inquiryForm.get('client_contact_no')?.errors?.['pattern']">
+        Only numbers are allowed.
+      </ng-container>
+      <ng-container *ngIf="inquiryForm.get('client_contact_no')?.errors?.['minlength']">
+        Mobile number must be 10 digits.
+      </ng-container>
+      <ng-container *ngIf="inquiryForm.get('client_contact_no')?.errors?.['maxlength']">
+        Mobile number must be 10 digits.
+      </ng-container>
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="!projectId">
+    <select class="form-control-reecosys-template"
+      [ngClass]="{ 'error-border': inquiryForm.get('project_id')?.invalid && inquiryForm.get('project_id')?.touched }"
+      formControlName="project_id">
+      <option value="">Select Project</option>
+      <option *ngFor="let project of globalApi.projectsFullList$.value" [value]="project.project_id">
+        {{ project.project_name }}
+      </option>
+    </select>
+    <div *ngIf="inquiryForm.get('project_id')?.touched && inquiryForm.get('project_id')?.invalid" class="error-message">
+      Please enter project.
+    </div>
+  </ng-container>
+
+  <div class="form-card relative">
+    <textarea class="form-control-reecosys-template" formControlName="remarks" placeholder="Remarks"
+      rows="5"></textarea>
+  </div>
+
+  <div class="form-control-reecosys-template-radios">
+    <label><input style="filter: grayscale(1);" type="radio" value="Call" formControlName="preferred_mode" />
+      Call</label>
+    <label><input style="filter: grayscale(1);" type="radio" value="Email" formControlName="preferred_mode" />
+      Email</label>
+    <label><input style="filter: grayscale(1);" type="radio" value="WhatsApp" formControlName="preferred_mode" />
+      WhatsApp</label>
+  </div>
+
+  <div class="form-card relative">
+    <label>
+      <input type="checkbox" style="filter: grayscale(1);" formControlName="agree_tandc" />
+      I agree to the terms and conditions
+    </label>
+    <div *ngIf="inquiryForm.get('agree_tandc')?.touched && inquiryForm.get('agree_tandc')?.invalid"
+      class="error-message">
+      Please agree to the terms and conditions.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="submitting" class="reecosys-template-button button-style-primary mob100">
+    <p>Submit</p>
+  </button>
+
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</form>
+
+<div class="md-toast" *ngIf="submitted">
+  <p>Thank you for your inquiry! We will get in touch with you soon.</p>
+</div>

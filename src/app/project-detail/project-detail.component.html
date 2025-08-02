@@ -7,9 +7,17 @@
   <ng-container *ngIf="!loading && projectData">
     <section class="reecosys-section relative" id="reecosys-detail-section-1" *ngIf="projectData?.banner_data">
       <div class="banner-image-wrapper">
-        <img [src]="projectData.banner_data.image_web_full + '&w=2560&q=100'" alt="" [class.loaded]="imageLoaded"
-          (load)="imageLoaded = true" />
+        <picture>
+          <!-- For mobile: use height constraint when screen ≤ 991px -->
+          <source media="(max-width: 991px)"
+            [srcset]="projectData.banner_data.image_web_full + '&w=1080&h=1920&q=100'" />
+
+          <!-- Default: desktop and above use 2560px width -->
+          <img [src]="projectData.banner_data.image_web_full + '&w=2560&q=100'" alt="" [class.loaded]="imageLoaded"
+            (load)="imageLoaded = true" />
+        </picture>
       </div>
+
       <div class="detail-overlay"></div>
       <div *ngIf="projectData?.banner_data && imageLoaded" class="new-horizon-detail">
         <svg id="new-horizon-html" viewBox="0 0 1321 92" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +58,7 @@
       </div>
     </section>
     <section class="reecosys-section section-padding relative" id="reecosys-detail-section-2"
-      *ngIf="projectData?.overview_title && projectData?.big_text && !loading && imageLoaded">
+      *ngIf="projectData?.overview_title && projectData?.big_text">
       <div class="mini-container">
         <div class="inner-flex inner-flex-medium">
           <div class="banner-title">
@@ -62,7 +70,8 @@
           <div class="section-paragraph" [innerHTML]="projectData?.big_text"></div>
 
 
-          <div class="flex-row flex-row-medium alc" *ngIf="projectData.size_price && projectData.location">
+          <div class="flex-row flex-row-medium mob-flex-row-col alc"
+            *ngIf="projectData.size_price && projectData.location">
             <div class="project-info-icon-flex">
               <div class="project-info-icon">
                 <img src="assets/images/icons/buildings.svg" alt="">
@@ -98,7 +107,7 @@
             </div>
           </div>
 
-          <div class="flex-row flex-row-medium alc">
+          <div class="flex-row flex-row-medium mob-flex-row-col alc">
             <button class="reecosys-template-button button-style-secondary">
               <div class="reecosys-btn-icon">
                 <img src="assets/images/icons/call-white.svg" class="hover-disable" alt="">
@@ -122,10 +131,15 @@
       </div>
     </section>
     <section class="reecosys-section relative" id="reecosys-detail-section-3"
-      *ngIf="projectData?.virtual_data && projectData?.virtual_data.length > 0 && !loading && imageLoaded">
+      *ngIf="projectData?.virtual_data && projectData?.virtual_data.length > 0">
       <div class="walkthrough-banner">
         <img *ngIf="projectData?.virtual_data?.[0]?.image"
-          [src]="projectData.virtual_data[0].image + '&w=1920&h=920&q=100'" alt="Virtual Tour" />
+          [src]="projectData.virtual_data[0].image + '&w=1920&h=920&q=100'" class="hide-tab-mobile"
+          alt="Virtual Tour" />
+
+        <img *ngIf="projectData?.virtual_data?.[0]?.image"
+          [src]="projectData.virtual_data[0].image + '&w=991&h=1255&q=100'" class="visible-tab-mobile"
+          alt="Virtual Tour" />
       </div>
       <div class="play-icon">
         <a data-fancybox href="https://www.youtube.com/embed/7F_D1-t9h_E?autoplay=1">
@@ -142,7 +156,7 @@
       </div>
     </section>
     <section class="reecosys-section section-padding relative" id="reecosys-detail-section-4"
-      *ngIf="projectData?.highlights && projectData?.highlights.length > 0 && !loading && imageLoaded">
+      *ngIf="projectData?.highlights && projectData?.highlights.length > 0">
       <div class="main-container-fluid">
         <div class="highlights-flex-wrapper-main">
           <div class="highlights-flex-containers inner-flex inner-flex-small">
@@ -184,7 +198,7 @@
       </div>
     </section>
     <section class="reecosys-section section-padding relative" id="reecosys-detail-section-5"
-      *ngIf="projectData?.amenities_data && projectData?.amenities_data.length > 0 && !loading && imageLoaded">
+      *ngIf="projectData?.amenities_data && projectData?.amenities_data.length > 0">
       <div class="main-container">
         <div class="amenities-title-flex-row">
           <div class="section-title">
@@ -194,8 +208,9 @@
           </div>
         </div>
       </div>
-      <div id="amenities-section-swiper-with-paginations">
-        <swiper *ngIf="isBrowser" [config]="mySwiperConfig" class="mySwiper">
+      <div *ngIf="isBrowser" id="amenities-section-swiper-with-paginations">
+        <swiper #swiperRef [config]="mySwiperConfig" class="mySwiper">
+
           <ng-template swiperSlide>
             <div class="swiper-slide-content">
               <img src="assets/images/detail/amenities-img-1.jpg" />
@@ -226,11 +241,11 @@
               <p class="caption bold-fonts">Business Lounge</p>
             </div>
           </ng-template>
+          <div class="swiper-pagination-amenities"></div>
         </swiper>
-
       </div>
     </section>
-    <section class="marquee-section" *ngIf="!loading && imageLoaded">
+    <section class="marquee-section">
       <section class="marquee-section">
         <div class="marquee">
           <div class="marquee-content">
@@ -244,7 +259,7 @@
 
     </section>
     <section class="reecosys-section section-padding relative" id="reecosys-detail-section-6"
-      *ngIf="projectData?.gallery_data && projectData?.gallery_data.length > 0 && !loading && imageLoaded">
+      *ngIf="projectData?.gallery_data && projectData?.gallery_data.length > 0">
       <div class="mini-container">
         <div class="inner-flex inner-flex-medium">
           <div class="section-flex-row-jsc">
@@ -320,7 +335,7 @@
       </div>
     </section>
     <section class="reecosys-section section-padding relative" id="reecosys-detail-section-7"
-      *ngIf="projectData?.construction && !loading && imageLoaded">
+      *ngIf="projectData?.construction">
       <div class="main-container">
         <div class="inner-flex inner-flex-medium">
           <div class="construction-flex-row">
@@ -348,6 +363,108 @@
 
 
           </div>
+        </div>
+      </div>
+    </section>
+    <section class="reecosys-section section-padding relative" id="reecosys-detail-section-8"
+      *ngIf="projectData?.location_title">
+      <div class="main-container-2">
+        <div class="location-wrapper-detail">
+          <div class="location-iframe-wrapper" *ngIf="safeMapUrl">
+            <iframe [src]="safeMapUrl" frameborder="0"></iframe>
+          </div>
+
+          <div class="inner-flex inner-flex-medium">
+            <div class="section-title">
+              <p class="bold-fonts sahashya-color">{{projectData.location_title}}</p>
+            </div>
+            <div class="inner-flex inner-flex-common">
+              <div class="flex-row contact-detail-flex">
+                <div class="section-content">
+                  <p class="semibold-fonts">
+                    M.
+                  </p>
+                </div>
+                <div class="section-content">
+                  <p class="flex-row flex-row-small mob-col-flex alc">
+                    <a href="tel:+91 89805 48000">
+                      +91 89805 48000
+                    </a>
+                    <span class="hide-tab-mobile">
+                      /
+                    </span>
+                    <a href="tel:+91 89805 49000">
+                      +91 89805 49000
+                    </a>
+                  </p>
+                  <p>
+                    <a href="tel:+91 96979 95000">
+                      +91 96979 95000
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div class="flex-row contact-detail-flex">
+                <div class="section-content">
+                  <p class="semibold-fonts">
+                    E.
+                  </p>
+                </div>
+                <div class="section-content">
+                  <p>
+                    <a href="mailto:info@sahashyagroup.com">
+                      info@sahashyagroup.com
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div class="flex-row contact-detail-flex">
+                <div class="section-content">
+                  <p class="semibold-fonts">
+                    A.
+                  </p>
+                </div>
+                <div class="section-content">
+                  <p>
+                    {{projectData.address_description}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <a href="{{projectData.map_slug}}" target="_blank" class="wfc db mob100">
+              <button class="button-style-primary reecosys-template-button">
+                <p>
+                  View On Map
+                </p>
+                <div class="reecosys-btn-icon">
+                  <img src="assets/images/icons/arrow-right-white.svg" class="hover-disable" alt="">
+                  <img src="assets/images/icons/arrow-right.svg" class="hover-enable" alt="">
+                </div>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="reecosys-section section-padding relative" id="reecosys-detail-section-9" *ngIf="projectData">
+      <div class="main-container-2">
+        <div class="inquire-now-form-wrapper-detail-page">
+          <div class="section-title">
+            <h2 class="sahashya-color bold-fonts">
+              Inquire Now
+            </h2>
+          </div>
+          <div class="inner-flex inner-flex-medium">
+            <div class="section-subtitle2">
+              <p>
+                Are you interested in owning a residence at Skyzenia or have a question about the project?
+              </p>
+
+            </div>
+            <app-inquiry-form [projectId]="projectData?.project_id"></app-inquiry-form>
+          </div>
+
+
         </div>
       </div>
     </section>
