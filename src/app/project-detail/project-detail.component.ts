@@ -21,7 +21,9 @@ import { SwiperComponent } from 'swiper/angular';
 import { SwiperOptions } from 'swiper';
 import SwiperCore, { Pagination } from 'swiper';
 SwiperCore.use([Pagination]);
-import { firstValueFrom } from 'rxjs';
+import { fromEvent, Subject, firstValueFrom } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { PopupService } from '../shared/popup/popup.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -36,18 +38,20 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
   loading = true;
   imageLoaded = false;
   hasBrochure = false;
+  isMobileDetail = false;
   isBrowser = false;
   safeMapUrl: SafeResourceUrl | null = null;
   private STATE_KEY: any;
+  showBottomStrip = false;
+  private destroy$ = new Subject<void>();
+  private debounceScroll$ = new Subject<void>();
 
   public repeatArray = Array(20);
   public selectedTab: 'interior' | 'exterior' = 'interior';
 
   public mySwiperConfig: SwiperOptions = {
-    slidesPerView: 3.2,
+    slidesPerView: 4.2,
     spaceBetween: 15,
-    slidesOffsetBefore: 80,
-    slidesOffsetAfter: 80,
     loop: false,
     grabCursor: true,
     pagination: {
@@ -56,83 +60,64 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
       clickable: true,
     },
     breakpoints: {
-      1680: {
-        slidesPerView: 3,
-        spaceBetween: 15,
-        slidesOffsetBefore: 80,
-        slidesOffsetAfter: 80,
-      },
-      1450: {
-        slidesPerView: 2.8,
-        spaceBetween: 15,
-        slidesOffsetBefore: 85,
-        slidesOffsetAfter: 85,
-      },
-      1366: {
-        slidesPerView: 2.6,
-        spaceBetween: 15,
-        slidesOffsetBefore: 107,
-        slidesOffsetAfter: 107,
-      },
-      1280: {
-        slidesPerView: 2.5,
-        spaceBetween: 20,
-        slidesOffsetBefore: 128,
-        slidesOffsetAfter: 128,
-      },
-      1152: {
-        slidesPerView: 2.25,
-        spaceBetween: 20,
-        slidesOffsetBefore: 115,
-        slidesOffsetAfter: 115,
-      },
-      1024: {
-        slidesPerView: 2,
-        spaceBetween: 20,
-        slidesOffsetBefore: 62,
-        slidesOffsetAfter: 62,
-      },
-      991: {
-        slidesPerView: 1.8,
-        spaceBetween: 20,
-        slidesOffsetBefore: 24,
-        slidesOffsetAfter: 24,
-      },
-      768: {
-        slidesPerView: 1.5,
-        spaceBetween: 18,
-        slidesOffsetBefore: 0,
-        slidesOffsetAfter: 0,
-      },
-      640: {
-        slidesPerView: 1.25,
-        spaceBetween: 15,
-        slidesOffsetBefore: 0,
-        slidesOffsetAfter: 0,
-      },
-      480: {
-        slidesPerView: 1.1,
-        spaceBetween: 12,
-        slidesOffsetBefore: 0,
-        slidesOffsetAfter: 0,
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10,
       },
       375: {
         slidesPerView: 1.05,
         spaceBetween: 12,
-        slidesOffsetBefore: 0,
-        slidesOffsetAfter: 0,
       },
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        slidesOffsetBefore: 0,
-        slidesOffsetAfter: 0,
+      480: {
+        slidesPerView: 1.1,
+        spaceBetween: 12,
+      },
+      640: {
+        slidesPerView: 1.25,
+        spaceBetween: 15,
+      },
+      768: {
+        slidesPerView: 1.5,
+        spaceBetween: 18,
+      },
+      991: {
+        slidesPerView: 1.8,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1152: {
+        slidesPerView: 2.25,
+        spaceBetween: 20,
+      },
+      1280: {
+        slidesPerView: 2.5,
+        spaceBetween: 20,
+      },
+      1366: {
+        slidesPerView: 2.6,
+        spaceBetween: 15,
+      },
+      1450: {
+        slidesPerView: 2.8,
+        spaceBetween: 15,
+      },
+      1680: {
+        slidesPerView: 4.2,
+        spaceBetween: 15,
+      },
+      1920: {
+        slidesPerView: 4.2,
+        spaceBetween: 15,
       },
     },
   };
 
   constructor(
     private globalApi: GlobalApiService,
+    public popupService: PopupService,
     private sanitizer: DomSanitizer,
     private state: TransferState,
     private titleService: Title,
@@ -151,6 +136,17 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
       this.loading = false;
       this.state.remove(this.STATE_KEY);
     }
+  }
+  openInquiry() {
+    const name = this.projectData?.project_title || '';
+    const brochure =
+      this.projectData?.document_other_data?.find(
+        (d: any) => d.type === 'Brochure'
+      )?.url || '';
+    const id = this.projectData?.project_id;
+
+    this.showBottomStrip = false; // ✅ Hide bottom strip
+    this.popupService.open('inquiry', id, name, brochure);
   }
 
   async ngOnInit(): Promise<void> {
@@ -179,7 +175,6 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
         return;
       }
     } catch (error) {
-      console.error('⚠️ Project fetch error:', error);
       this.router.navigate(['/']);
       return;
     }
@@ -195,7 +190,33 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         this.swiperRef?.swiperRef?.update();
       }, 1500);
+      this.swiperRef?.swiperRef?.on('resize', () => {
+        this.swiperRef?.swiperRef?.update();
+      });
+      this.setupScrollObservers();
     }
+  }
+
+  setupScrollObservers() {
+    const section1 = document.getElementById('reecosys-detail-section-1');
+    const section9 = document.getElementById('reecosys-detail-section-9');
+
+    if (!section1 || !section9) return;
+
+    // Debounce scroll detection
+    fromEvent(window, 'scroll')
+      .pipe(debounceTime(100), takeUntil(this.destroy$))
+      .subscribe(() => {
+        const section1Rect = section1.getBoundingClientRect();
+        const section9Rect = section9.getBoundingClientRect();
+
+        const isSection1Visible = section1Rect.bottom > 0;
+        const isSection9Visible =
+          section9Rect.top < window.innerHeight && section9Rect.bottom > 0;
+
+        // Show if section-1 not visible AND section-9 not visible
+        this.showBottomStrip = !isSection1Visible && !isSection9Visible;
+      });
   }
 
   setTab(tab: 'interior' | 'exterior') {
@@ -254,5 +275,10 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
         this.projectData.map_iframe
       );
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

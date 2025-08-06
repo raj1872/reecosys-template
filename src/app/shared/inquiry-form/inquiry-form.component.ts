@@ -8,6 +8,9 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalApiService } from '../../services/global-api.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { OnChanges, SimpleChanges } from '@angular/core';
+import { PopupService } from '../popup/popup.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inquiry-form',
@@ -16,6 +19,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class InquiryFormComponent implements OnInit {
   @Input() projectId: string | null = null;
+  @Input() popupType: 'inquiry' | 'brochure' = 'inquiry';
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['projectId'] && this.inquiryForm) {
+      this.inquiryForm.get('project_id')?.setValue(this.projectId || '');
+    }
+  }
 
   inquiryForm!: FormGroup;
   submitting = false;
@@ -32,6 +42,8 @@ export class InquiryFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
+    public popupService: PopupService,
+    private router: Router,
     public globalApi: GlobalApiService,
     private _eref: ElementRef
   ) {}
@@ -50,6 +62,7 @@ export class InquiryFormComponent implements OnInit {
         ],
       ],
       preferred_mode: ['Call'],
+      preferred_type: ['4 BHK'],
       remarks: [''],
       agree_tandc: [true, Validators.requiredTrue],
       project_id: [this.projectId || '', Validators.required],
@@ -94,17 +107,20 @@ export class InquiryFormComponent implements OnInit {
   }
 
   onSubmit() {
+
     if (this.inquiryForm.invalid) {
-      this.inquiryForm.markAllAsTouched(); // this ensures validation styles apply
+      this.inquiryForm.markAllAsTouched();
       return;
     }
 
-    // ✅ Patch remarks before reading form value
     const pref = this.inquiryForm.get('preferred_mode')?.value || 'Call';
+    const pref_type = this.inquiryForm.get('preferred_type')?.value || '4 BHK';
     const remarksValue = this.inquiryForm.get('remarks')?.value || '';
+
     const updatedRemarks = remarksValue
-      ? `${remarksValue} | Preferred Contact: ${pref}`
-      : `Preferred Contact: ${pref}`;
+      ? `${remarksValue} | Preferred Contact: ${pref} | Type: ${pref_type}`
+      : `Preferred Contact: ${pref} | Type: ${pref_type}`;
+
     this.inquiryForm.patchValue({ remarks: updatedRemarks });
 
     const form = this.inquiryForm.value;
@@ -138,17 +154,31 @@ export class InquiryFormComponent implements OnInit {
       })
       .subscribe({
         next: (res: any) => {
+          this.submitting = false;
           if (res.success === 1) {
             this.submitted = true;
             this.inquiryForm.reset({
               preferred_mode: 'Call',
+              preferred_type: '4 BHK',
               agree_tandc: true,
               project_id: this.projectId || '',
             });
+
+            // ✅ Close the popup
+            // this.popupService.close();
+
+            // ✅ Redirect to Thank You with optional params
+            this.router.navigate(['/thank-you'], {
+              state: {
+                projectName: this.popupService.projectName,
+                brochure: this.popupService.brochureLink,
+              },
+            });
+
+            this.popupService.close(); // close popup
           } else {
             this.errorMessage = res?.message || 'Submission failed.';
           }
-          this.submitting = false;
         },
         error: () => {
           this.submitting = false;

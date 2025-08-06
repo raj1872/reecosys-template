@@ -34,6 +34,30 @@ export class GlobalApiService {
     blog: false,
     home: false,
   };
+
+  loadUserProfile(): Promise<void> {
+    const key = makeStateKey<any>('userProfile');
+    const body = { user_name: 'Sahashya Group' };
+
+    return new Promise((resolve) => {
+      this.ssrFetch(
+        key,
+        () =>
+          this.http.post<any>(this.apiUrlAdmin + 'admin/details', body, {
+            headers: this.headers,
+          }),
+        (data) => {
+          if (data) {
+            this.loggedUserDetails = data;
+            this.loggedInMasterId = data.master_user_id;
+            this.loggedInMasterUserId = data.master_user_id;
+          }
+          resolve();
+        }
+      );
+    });
+  }
+
   // In global-api.service.ts
   countryList$ = new BehaviorSubject<any[]>([]);
 
@@ -60,7 +84,9 @@ export class GlobalApiService {
     private transferState: TransferState,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.initGlobalDataOnServer(); // ✅ Load blog list on server
+    this.loadUserProfile().then(() => {
+      this.initGlobalDataOnServer();
+    });
   }
 
   get headers(): HttpHeaders {

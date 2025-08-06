@@ -1,4 +1,25 @@
 <form [formGroup]="inquiryForm" (ngSubmit)="onSubmit()" class="inner-flex inner-flex-small inner-flex-small-mob-medium">
+  <!-- You can conditionally show/hide fields based on popupType -->
+  <p *ngIf="popupType === 'brochure'">
+    Please provide your contact details to download the brochure.
+  </p>
+
+  <div class="inner-flex inner-flex-common">
+    <div class="section-content">
+      <p>
+        Select Type
+      </p>
+    </div>
+    <div class="form-control-reecosys-template-radios">
+      <label><input style="filter: grayscale(1);" type="radio" value="4 BHK" formControlName="preferred_type" />
+        4 BHK </label>
+      <label><input style="filter: grayscale(1);" type="radio" value="5 BHK" formControlName="preferred_type" />
+        5 BHK </label>
+      <label><input style="filter: grayscale(1);" type="radio" value="Duplex / Penthouse"
+          formControlName="preferred_type" />
+        Duplex / Penthouse</label>
+    </div>
+  </div>
   <div class="form-card relative">
     <input type="text" class="form-control-reecosys-template"
       [ngClass]="{ 'error-border': inquiryForm.get('client_name')?.invalid && inquiryForm.get('client_name')?.touched }"
@@ -82,14 +103,20 @@
     <textarea class="form-control-reecosys-template" formControlName="remarks" placeholder="Remarks"
       rows="5"></textarea>
   </div>
-
-  <div class="form-control-reecosys-template-radios">
-    <label><input style="filter: grayscale(1);" type="radio" value="Call" formControlName="preferred_mode" />
-      Call</label>
-    <label><input style="filter: grayscale(1);" type="radio" value="Email" formControlName="preferred_mode" />
-      Email</label>
-    <label><input style="filter: grayscale(1);" type="radio" value="WhatsApp" formControlName="preferred_mode" />
-      WhatsApp</label>
+  <div class="inner-flex inner-flex-common">
+    <div class="section-content">
+      <p>
+        Preferred Mode of Contact
+      </p>
+    </div>
+    <div class="form-control-reecosys-template-radios">
+      <label><input style="filter: grayscale(1);" type="radio" value="Call" formControlName="preferred_mode" />
+        Call</label>
+      <label><input style="filter: grayscale(1);" type="radio" value="Email" formControlName="preferred_mode" />
+        Email</label>
+      <label><input style="filter: grayscale(1);" type="radio" value="WhatsApp" formControlName="preferred_mode" />
+        WhatsApp</label>
+    </div>
   </div>
 
   <div class="form-card relative">
@@ -104,8 +131,10 @@
   </div>
 
   <button type="submit" [disabled]="submitting" class="reecosys-template-button button-style-primary mob100">
-    <p>Submit</p>
+    <p *ngIf="!submitting">Submit</p>
+    <p *ngIf="submitting">Please wait...</p>
   </button>
+
 
   <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 </form>

@@ -1,0 +1,22 @@
+<div class="inquiry-popup" [class.show]="popupService.isOpen" tabindex="-1">
+  <div class="popup-header">
+    <div class="section-subtitle">
+      <p class="bold-fonts sahashya-color">
+        {{ popupService.popupType === 'inquiry' ? 'Inquire Now' : 'Download Brochure' }}
+      </p>
+    </div>
+    <div class="section-paragraph" (click)="closePopup()">
+      <p>
+        &times;
+      </p>
+    </div>
+  </div>
+  <div class="popup-body">
+    <app-inquiry-form *ngIf="popupService.isOpen" [popupType]="popupService.popupType"
+      [projectId]="popupService.projectId?.toString() || null"></app-inquiry-form>
+
+
+  </div>
+</div>
+
+<div class="popup-backdrop" *ngIf="popupService.isOpen" (click)="closePopup()"></div>

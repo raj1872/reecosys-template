@@ -1,0 +1,10 @@
+.thank-you-container {
+  padding: 6rem 1.5rem;
+  text-align: center;
+  height: 100lvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+

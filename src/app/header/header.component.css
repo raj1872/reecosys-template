@@ -1,0 +1,8 @@
+.link-fonts-flex-header{
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    align-items: end;
+    justify-content: end;
+    text-align: right;
+}

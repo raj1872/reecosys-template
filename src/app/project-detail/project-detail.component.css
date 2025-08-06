@@ -568,7 +568,7 @@
 
 
 .shimmer-banner {
-  width: 2560px;
+  width: 100%;
   max-width: 100%;
   min-height: 450vh;
   background: linear-gradient(90deg, #aeacac 25%, #ababab 37%, #aeacac 63%);
@@ -587,7 +587,7 @@
 }
 
 .banner-image-wrapper {
-  width: 2560px;
+  width: 100%;
   max-width: 100%;
   min-height: 120vh;
   background: linear-gradient(90deg, #aeacac 25%, #ababab 37%, #aeacac 63%);
@@ -793,6 +793,7 @@
   color: var(--white-color);
   line-height: 1;
   padding: 0.75rem 1.25rem;
+  cursor: pointer;
 }
 
 .tab-btn.tab-btn-active {
@@ -990,6 +991,10 @@
 }
 
 
+::ng-deep #amenities-section-swiper-with-paginations .swiper-wrapper {
+  padding: 0 80px !important;
+}
+
 ::ng-deep .swiper-pagination-amenities {
   height: 4px;
   background-color: #e0e0e0;
@@ -1007,5 +1012,74 @@
 @media (min-width: 992px) {
   ::ng-deep .swiper-pagination-amenities {
     display: none !important;
+  }
+}
+
+.bottom-strip-web {
+  padding: 1rem 2rem;
+  background-color: var(--white-color);
+  position: fixed;
+  border-top: 1px solid #EDEDED;
+  bottom: -100%;
+  width: 100%;
+  left: 0;
+  z-index: 999;
+  transition: var(--common-transition);
+}
+
+.bottom-strip-web.bottom-strip-web-in {
+  bottom: 0 !important;
+  transition: var(--common-transition);
+}
+
+.icon-back-first {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.75rem;
+  background-color: #F5F5F5;
+  border-radius: 50%;
+}
+
+.bottom-strip-flex-web {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+}
+
+
+
+.flex-row-btm-strip {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.flex-row-btm-strip-jsc {
+  justify-content: center;
+  gap: 4rem;
+}
+
+.inquire-now-bottom-web {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media only screen and (max-width: 991px) {
+  .bottom-strip-web{
+    padding: 1rem 1.5rem;
+  }
+  .bottom-strip-flex-web {
+    grid-template-columns: 100%;
+  }
+
+  .flex-row-btm-strip {
+    display: none !important;
+  }
+
+  .inquire-now-bottom-web button.reecosys-template-button {
+    width: 100% !important;
   }
 }

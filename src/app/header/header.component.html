@@ -1,29 +1,138 @@
-<div class="header-wrapper" [ngClass]="{ 'white-header-wrapper': isProjectDetailPage }">
+<div class="header-wrapper" [ngClass]="{'white-header-wrapper': isProjectDetailPage || menuOpen,  'active': menuOpen}">
   <div class="header-flex">
     <div class="header-logo">
       <a href="/">
-        <!-- Colored Logo (default) -->
+        <!-- Colored Logo when not on detail page and menu is closed -->
         <img src="./assets/images/sahashya-color-logo.svg" alt="Color Logo" class="logo-img"
-          *ngIf="!isProjectDetailPage" />
+          *ngIf="!isProjectDetailPage && !menuOpen" />
 
-        <!-- White Logo (on detail page) -->
+        <!-- White Logo when on detail page OR menu is open -->
         <img src="./assets/images/sahashya-white-logo.svg" alt="White Logo" class="logo-img"
-          *ngIf="isProjectDetailPage" />
+          *ngIf="isProjectDetailPage || menuOpen" />
       </a>
     </div>
     <div class="header-links-ul">
       <ul>
-        <li class="link-font-size">
-          <a href="">
-            <p >Skyzenia</p>
+        <li *ngIf="!isMobileView">
+          <a href="Sahashya-Skyzenia/" class="link-fonts-flex-header">
+            <div class="section-content lh1">
+              <p class="lh1 semibold-fonts">Skyzenia</p>
+            </div>
+            <div class="section-content lh1">
+              <p class="lh1">4 & 5 BHK Simplex Duplex and Penthouse</p>
+            </div>
           </a>
         </li>
         <li>
-          <div class="web-bar">
+          <div class="web-bar" (click)="toggleMenu()" [ngClass]="{'active': menuOpen}">
             <div class="bar top"></div>
             <div class="bar middle"></div>
             <div class="bar bottom"></div>
           </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="navigation-wrapper-reecosys" [ngClass]="{'active': menuOpen}">
+  <div class="main-navigation-wrapper">
+    <div class="web-navigation-explore-card">
+      <div class="web-nav-image-div relative" *ngIf="!isMobileView">
+        <div class="image-overlay"></div>
+        <img src="./assets/images/web-navigation-img.png" alt="">
+        <div class="navogation-abs-div">
+          <div class="skyzenia-logo-web-nav">
+            <img src="./assets/images/web-navigation-skyzenia-logo.svg" alt="">
+          </div>
+          <a href="Sahashya-Skyzenia/" (click)="closeMenu()"
+            class="reecosys-template-button button-style-white-outline">
+            <p>
+              Explore Now
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="navigation-link-wrapper">
+      <ng-container *ngIf="isMobileView">
+        <div class="mob-nav-image-div relative">
+          <div class="image-overlay"></div>
+          <img src="./assets/images/web-navigation-img.png" alt="">
+        </div>
+        <div class="navogation-flex-mob-div">
+          <div class="skyzenia-logo-mob-nav">
+            <img src="./assets/images/skyzenia-logo-section.svg" alt="">
+          </div>
+          <a href="Sahashya-Skyzenia/" class="explore-btn-mobile" (click)="closeMenu()">
+            <p>
+              Explore Now
+            </p>
+          </a>
+        </div>
+      </ng-container>
+      <ul class="inner-flex inner-flex-small mobile-navigation-linkss">
+        <li class="section-subtitle">
+          <a href="javascript:void(0);" (click)="closeMenu()">
+            <p class="lh1 bold-fonts">
+              Home
+            </p>
+          </a>
+        </li>
+        <li class="section-subtitle">
+          <a href="javascript:void(0);" (click)="closeMenu()">
+            <p class="lh1 bold-fonts">
+              About
+            </p>
+          </a>
+        </li>
+        <li class="section-subtitle">
+          <a href="javascript:void(0);" (click)="closeMenu()">
+            <p class="lh1 bold-fonts">
+              Projects
+            </p>
+          </a>
+        </li>
+        <li class="section-subtitle">
+          <a href="javascript:void(0);" (click)="closeMenu()">
+            <p class="lh1 bold-fonts">
+              Channel Partner
+            </p>
+          </a>
+        </li>
+        <li class="section-subtitle">
+          <a href="javascript:void(0);" (click)="closeMenu()">
+            <p class="lh1 bold-fonts">
+              Articles
+            </p>
+          </a>
+        </li>
+        <li class="section-subtitle">
+          <a href="javascript:void(0);" (click)="closeMenu()">
+            <p class="lh1 bold-fonts">
+              Contact
+            </p>
+          </a>
+        </li>
+      </ul>
+      <ul class="social-links-wrapper">
+        <li>
+          <a href="" class="social-icon" (click)="closeMenu()"><img src="./assets/images/icons/social/fb.svg" alt="">
+          </a>
+        </li>
+        <li>
+          <a href="" class="social-icon" (click)="closeMenu()"><img src="./assets/images/icons/social/insta.svg" alt="">
+          </a>
+        </li>
+        <li>
+          <a href="" class="social-icon" (click)="closeMenu()"><img src="./assets/images/icons/social/linkedin.svg"
+              alt="">
+          </a>
+        </li>
+        <li>
+          <a href="" class="social-icon" (click)="closeMenu()"><img src="./assets/images/icons/social/yt.svg" alt="">
+          </a>
         </li>
       </ul>
     </div>

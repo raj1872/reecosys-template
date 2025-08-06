@@ -19,23 +19,23 @@ export class HomeComponent implements OnInit {
   
     this.globalApi.projectsFullList$.subscribe((data) => {
       this.projects = data;
-      console.log('Projects:', this.projects);
+      // console.log('Projects:', this.projects);
     });
 
   
     this.globalApi.projectsFullListCompleted$.subscribe((data) => {
       this.completedProjects = data;
-      console.log('Completed Projects:', this.completedProjects);
+      // console.log('Completed Projects:', this.completedProjects);
     });
 
     this.globalApi.pageFullList$.subscribe((data) => {
       this.pages = data;
-      console.log('Pages:', this.pages);
+      // console.log('Pages:', this.pages);
     });
 
     this.globalApi.homeList$.subscribe((data) => {
       this.homeList = data;
-      console.log('Home Details:', this.homeList);
+      // console.log('Home Details:', this.homeList);
     });
   }
 }

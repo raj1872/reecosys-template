@@ -71,7 +71,7 @@ function run(): void {
 
   const server = app();
   server.listen(port, () => {
-    console.log(`✅ SSR server running at http://localhost:${port}`);
+    // console.log(`✅ SSR server running at http://localhost:${port}`);
   });
 }
 

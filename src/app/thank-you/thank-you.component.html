@@ -1,0 +1,36 @@
+<div class="thankyou-component-wrapper">
+  <div class="thank-you-container inner-flex inner-flex-medium inner-flex-center">
+    <div class="inner-flex inner-flex-small inner-flex-center">
+      <div class="inner-flex inner-flex-smallest inner-flex-center">
+        <div class="banner-title">
+          <h1 class="sahashya-color bold-fonts">Thank You!</h1>
+        </div>
+        <div class="section-subtitle2">
+          <p class="sahashya-color bold-fonts">
+            For Getting in Touch!
+          </p>
+        </div>
+      </div>
+      <div class="section-paragraph">
+        <p *ngIf="projectName">We appreciate you contacting us about {{ projectName }}.<br class="hide-tab-mobile">
+          Team Sahashya Group will get back to you shortly.</p>
+      </div>
+    </div>
+    <a *ngIf="brochureLink" [href]="brochureLink" target="_blank" class="download-button">
+      <button class="reecosys-template-button button-style-secondary-outline">
+        <div class="reecosys-btn-icon">
+          <img src="assets/images/icons/download.svg" class="hover-disable" alt="" />
+          <img src="assets/images/icons/download-white.svg" class="hover-enable" alt="" />
+        </div>
+        <p>
+          Download Brochure
+        </p>
+      </button>
+    </a>
+    <div style="margin-top: 2rem;" class="section-paragraph">
+      <a routerLink="/" class="">
+        Back to Home
+      </a>
+    </div>
+  </div>
+</div>

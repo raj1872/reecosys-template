@@ -1,4 +1,5 @@
 <div class="project-detail-wrapper" id="reecosys-detail-wrapper">
+  <!-- <pre *ngIf="projectData">{{ projectData | json }}</pre> -->
   <ng-container *ngIf="loading && !imageLoaded" class="shimmer-wrapper">
     <div class="shimmer-banner">
 
@@ -108,25 +109,24 @@
           </div>
 
           <div class="flex-row flex-row-medium mob-flex-row-col alc">
-            <button class="reecosys-template-button button-style-secondary">
+            <button class="reecosys-template-button button-style-secondary" (click)="openInquiry()">
               <div class="reecosys-btn-icon">
-                <img src="assets/images/icons/call-white.svg" class="hover-disable" alt="">
-                <img src="assets/images/icons/call.svg" class="hover-enable" alt="">
+                <img src="assets/images/icons/call-white.svg" class="hover-disable" alt="" />
+                <img src="assets/images/icons/call.svg" class="hover-enable" alt="" />
               </div>
-              <p>
-                Inquire Now
-              </p>
+              <p>Inquire Now</p>
             </button>
-            <button class="reecosys-template-button button-style-secondary-outline" *ngIf="hasBrochure">
+
+            <button class="reecosys-template-button button-style-secondary-outline" *ngIf="hasBrochure"
+              (click)="popupService.open('brochure', projectData?.project_id)">
               <div class="reecosys-btn-icon">
-                <img src="assets/images/icons/download.svg" class="hover-disable" alt="">
-                <img src="assets/images/icons/download-white.svg" class="hover-enable" alt="">
+                <img src="assets/images/icons/download.svg" class="hover-disable" alt="" />
+                <img src="assets/images/icons/download-white.svg" class="hover-enable" alt="" />
               </div>
-              <p>
-                Download Brochure
-              </p>
+              <p>Download Brochure</p>
             </button>
           </div>
+
         </div>
       </div>
     </section>
@@ -463,13 +463,73 @@
             </div>
             <app-inquiry-form [projectId]="projectData?.project_id"></app-inquiry-form>
           </div>
-
-
         </div>
       </div>
     </section>
   </ng-container>
 
 
-
+  <ng-container id="bottom-strip-wrapper" *ngIf="!loading && projectData && showBottomStrip">
+    <div class="bottom-strip-web" [class.bottom-strip-web-in]="showBottomStrip">
+      <div class="bottom-strip-flex-web">
+        <div class="flex-row-btm-strip">
+          <div class="icon-back-first">
+            <img src="./assets/images/icons/chevron-left.svg" alt="">
+          </div>
+          <div class="inner-flex inner-flex-smallest">
+            <div class="section-text">
+              <p class="lh1 gray-color">
+                Project
+              </p>
+            </div>
+            <div class="section-subtitle2">
+              <p class="bold-fonts lh1">
+                {{projectData.project_title}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-row-btm-strip flex-row-btm-strip-jsc">
+          <div class="inner-flex inner-flex-smallest">
+            <div class="section-text">
+              <p class="lh1 gray-color">
+                Type
+              </p>
+            </div>
+            <div class="section-subtitle2">
+              <p class="bold-fonts lh1">
+                4 - 5 BHK Apartments
+              </p>
+            </div>
+            <div class="section-text">
+              <p class="lh1">
+                Simplex, Duplex and Penthouse
+              </p>
+            </div>
+          </div>
+          <div class="inner-flex inner-flex-smallest">
+            <div class="section-text ">
+              <p class="lh1 gray-color">
+                Location
+              </p>
+            </div>
+            <div class="section-subtitle2">
+              <p class="bold-fonts lh1">
+                Science Park, Ahmedabad
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="inquire-now-bottom-web">
+          <button class="reecosys-template-button button-style-primary" (click)="openInquiry()">
+            <div class="reecosys-btn-icon">
+              <img src="assets/images/icons/call-white.svg" class="hover-disable" alt="" />
+              <img src="assets/images/icons/call.svg" class="hover-enable" alt="" />
+            </div>
+            <p>Inquire Now</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
