@@ -1071,6 +1071,10 @@
   .bottom-strip-web{
     padding: 1rem 1.5rem;
   }
+
+  ::ng-deep #amenities-section-swiper-with-paginations .swiper-wrapper {
+  padding: 0 1.5rem !important;
+}
   .bottom-strip-flex-web {
     grid-template-columns: 100%;
   }
